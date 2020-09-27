@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('存储学生信息列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>学生姓名：</label>
+                                <input type="text" name="sName"/>
+                            </li>
+                            <li>
+                                <label>学生身份证号：</label>
+                                <input type="text" name="sIdCard"/>
+                            </li>
+                            <li>
+                                <label>性别(0男 1女)：</label>
+                                <select name="sSex" th:with="type=${@dict.getType('sys_user_sex')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>出生年月：</label>
+                                <input type="text" name="sBirthday"/>
+                            </li>
+                            <li>
+                                <label>毕业院校：</label>
+                                <input type="text" name="sCollege"/>
+                            </li>
+                            <li>
+                                <label>毕业院校层次(0:985 1:211 2一批本科 3 二批本科 4专科 5高职)：</label>
+                                <select name="sCLevel" th:with="type=${@dict.getType('s_c_level')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>专业：</label>
+                                <input type="text" name="sProfession"/>
+                            </li>
+                            <li>
+                                <label>学历(0博士 1硕士 2本科 3专科)：</label>
+                                <select name="sEHistory" th:with="type=${@dict.getType('s_e_history')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>籍贯-省份：</label>
+                                <input type="text" name="sNProvince"/>
+                            </li>
+                            <li>
+                                <label>籍贯-地级市：</label>
+                                <input type="text" name="sNCity"/>
+                            </li>
+                            <li>
+                                <label>外语水平(0英语四级 1英语6级 2日语二级 3日语三级 4无)：</label>
+                                <select name="sFLanguage" th:with="type=${@dict.getType('s_f_language')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>期望薪资范围：</label>
+                                <select name="sSRange" th:with="type=${@dict.getType('s_s_range')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>期望岗位：</label>
+                                <input type="text" name="sEPosition"/>
+                            </li>
+                            <li>
+                                <label>就业意向地：</label>
+                                <select name="sECity" th:with="type=${@dict.getType('s_e_city')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>毕业时间：</label>
+                                <input type="text" name="sGTime"/>
+                            </li>
+                            <li>
+                                <label>电话：</label>
+                                <input type="text" name="sTelephone"/>
+                            </li>
+                            <li>
+                                <label>邮箱：</label>
+                                <input type="text" name="sEmail"/>
+                            </li>
+                            <li>
+                                <label>成绩单附件地址：</label>
+                                <input type="text" name="sSAttachment"/>
+                            </li>
+                            <li>
+                                <label>是否就业：</label>
+                                <select name="sIfWork" th:with="type=${@dict.getType('s_if_work')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>就业地-地级市：</label>
+                                <input type="text" name="sWCity"/>
+                            </li>
+                            <li>
+                                <label>就业的企业：</label>
+                                <input type="text" name="sCompany"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="student:student:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="student:student:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="student:student:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="student:student:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('student:student:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('student:student:remove')}]];
+        var sSexDatas = [[${@dict.getType('sys_user_sex')}]];
+        var sCLevelDatas = [[${@dict.getType('s_c_level')}]];
+        var sEHistoryDatas = [[${@dict.getType('s_e_history')}]];
+        var sFLanguageDatas = [[${@dict.getType('s_f_language')}]];
+        var sSRangeDatas = [[${@dict.getType('s_s_range')}]];
+        var sECityDatas = [[${@dict.getType('s_e_city')}]];
+        var sIfWorkDatas = [[${@dict.getType('s_if_work')}]];
+        var prefix = ctx + "student/student";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "存储学生信息",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'sId',
+                    title: '学生id',
+                    visible: false
+                },
+                {
+                    field: 'sName',
+                    title: '学生姓名'
+                },
+                {
+                    field: 'sIdCard',
+                    title: '学生身份证号'
+                },
+                {
+                    field: 'sSex',
+                    title: '性别(0男 1女)',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sSexDatas, value);
+                    }
+                },
+                {
+                    field: 'sBirthday',
+                    title: '出生年月'
+                },
+                {
+                    field: 'sCollege',
+                    title: '毕业院校'
+                },
+                {
+                    field: 'sCLevel',
+                    title: '毕业院校层次(0:985 1:211 2一批本科 3 二批本科 4专科 5高职)',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sCLevelDatas, value);
+                    }
+                },
+                {
+                    field: 'sProfession',
+                    title: '专业'
+                },
+                {
+                    field: 'sEHistory',
+                    title: '学历(0博士 1硕士 2本科 3专科)',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sEHistoryDatas, value);
+                    }
+                },
+                {
+                    field: 'sNProvince',
+                    title: '籍贯-省份'
+                },
+                {
+                    field: 'sNCity',
+                    title: '籍贯-地级市'
+                },
+                {
+                    field: 'sFLanguage',
+                    title: '外语水平(0英语四级 1英语6级 2日语二级 3日语三级 4无)',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sFLanguageDatas, value);
+                    }
+                },
+                {
+                    field: 'sSRange',
+                    title: '期望薪资范围',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sSRangeDatas, value);
+                    }
+                },
+                {
+                    field: 'sEPosition',
+                    title: '期望岗位'
+                },
+                {
+                    field: 'sECity',
+                    title: '就业意向地',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sECityDatas, value);
+                    }
+                },
+                {
+                    field: 'sGTime',
+                    title: '毕业时间'
+                },
+                {
+                    field: 'sTelephone',
+                    title: '电话'
+                },
+                {
+                    field: 'sEmail',
+                    title: '邮箱'
+                },
+                {
+                    field: 'sSAttachment',
+                    title: '成绩单附件地址'
+                },
+                {
+                    field: 'sIfWork',
+                    title: '是否就业',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(sIfWorkDatas, value);
+                    }
+                },
+                {
+                    field: 'sWCity',
+                    title: '就业地-地级市'
+                },
+                {
+                    field: 'sCompany',
+                    title: '就业的企业'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.sId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.sId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
