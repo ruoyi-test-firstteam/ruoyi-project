@@ -1,4 +1,4 @@
-package com.ruoyi.system.controller;
+package com.ruoyi.web.controller;
 
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
