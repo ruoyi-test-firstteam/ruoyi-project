@@ -4,9 +4,15 @@
     <th:block th:include="include :: header('存储企业信息列表')" />
 </head>
 <body class="gray-bg">
+<!--    <span th:text="${message}"></span>-->
+<!--    <span th:text="${session.message}"></span>-->
+<!--    <span th:if="${session.message} eq 'admin'" th:text="success"></span>-->
+<!--    <span th:if="${message} eq 'admin'" th:text="success"></span>-->
+<!--    <span th:if="${session.message=='admin'}" th:text="success"></span>-->
+<!--    <span th:if="${message=='admin'}" th:text="success"></span>-->
      <div class="container-div">
         <div class="row">
-            <div class="col-sm-12 search-collapse">
+            <div class="col-sm-12 search-collapse" th:if="${session.message} eq 'admin'">
                 <form id="formId">
                     <div class="select-list">
                         <ul>
@@ -76,7 +82,9 @@
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
                 modalName: "存储企业信息",
-                columns: [{
+                clickToSelect:true,
+                columns: [
+                {
                     checkbox: true
                 },
                 {
