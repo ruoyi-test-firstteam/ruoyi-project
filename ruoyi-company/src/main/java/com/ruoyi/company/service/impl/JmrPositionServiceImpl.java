@@ -14,7 +14,7 @@ import com.ruoyi.common.core.text.Convert;
  * @author ruoyi
  * @date 2020-09-27
  */
-@Service
+@Service("JmrPositionServiceImpl")
 public class JmrPositionServiceImpl implements IJmrPositionService 
 {
     @Autowired

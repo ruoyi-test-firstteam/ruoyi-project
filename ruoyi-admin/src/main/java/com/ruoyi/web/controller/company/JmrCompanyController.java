@@ -8,12 +8,16 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.company.domain.JmrCompany;
 import com.ruoyi.company.service.IJmrCompanyService;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import org.apache.catalina.User;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -31,6 +35,9 @@ public class JmrCompanyController extends BaseController
     @Autowired
     private IJmrCompanyService jmrCompanyService;
 
+    @Autowired
+    private IJmrCompanyService companyService;
+
     @RequiresPermissions("company:company:view")
     @GetMapping()
     public String company()
@@ -44,9 +51,22 @@ public class JmrCompanyController extends BaseController
     @RequiresPermissions("company:company:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(JmrCompany jmrCompany)
+    public TableDataInfo list(HttpServletRequest request)
     {
-        startPage();
+
+        //startPage();
+        //根据登录的用户名判断是否是企业用户
+        //String username = (String) request.getSession().getAttribute("username");
+        // 获取当前的用户信息
+              SysUser sysUser = ShiroUtils.getSysUser();
+        // 获取当前的用户名称
+              String userName = sysUser.getLoginName();
+        JmrCompany jmrCompany = companyService.selectJmrCompanyByPhone(userName);
+//        if(jmrCompany==null){//管理员账号
+//            request.getSession().setAttribute("message","admin");
+//        }
+//        System.out.println(request.getSession().getAttribute("message"));
+
         List<JmrCompany> list = jmrCompanyService.selectJmrCompanyList(jmrCompany);
         return getDataTable(list);
     }
@@ -104,9 +124,13 @@ public class JmrCompanyController extends BaseController
     @Log(title = "存储企业信息", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(JmrCompany jmrCompany)
+    public AjaxResult editSave(JmrCompany jmrCompany,HttpServletRequest request)
     {
-        return toAjax(jmrCompanyService.updateJmrCompany(jmrCompany));
+        int i = jmrCompanyService.updateJmrCompany(jmrCompany);
+//        if(i>0){
+//            request.getSession().setAttribute("company",company());
+//        }
+        return toAjax(i);
     }
 
     /**

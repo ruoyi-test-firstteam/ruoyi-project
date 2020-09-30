@@ -25,6 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author ruoyi
  * @date 2020-09-27
  */
+
 @Controller
 @RequestMapping("/company/position")
 public class JmrPositionController extends BaseController
@@ -53,6 +54,8 @@ public class JmrPositionController extends BaseController
         List<JmrPosition> list = jmrPositionService.selectJmrPositionList(jmrPosition);
         return getDataTable(list);
     }
+
+
 
     /**
      * 导出岗位信息管理列表

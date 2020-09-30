@@ -18,7 +18,12 @@ public interface IJmrCompanyService
      * @return 存储企业信息
      */
     public JmrCompany selectJmrCompanyById(Long cId);
-
+    /**
+     * 查询存储企业信息根据联系方式
+     *
+     *
+     */
+    public JmrCompany selectJmrCompanyByPhone(String jId);
     /**
      * 查询存储企业信息列表
      * 

@@ -1,6 +1,7 @@
 package com.ruoyi.company.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.company.mapper.JmrCompanyMapper;
@@ -14,7 +15,7 @@ import com.ruoyi.common.core.text.Convert;
  * @author ruoyi
  * @date 2020-09-27
  */
-@Service
+@Service("JmrCompanyService")
 public class JmrCompanyServiceImpl implements IJmrCompanyService 
 {
     @Autowired
@@ -31,6 +32,15 @@ public class JmrCompanyServiceImpl implements IJmrCompanyService
     {
         return jmrCompanyMapper.selectJmrCompanyById(cId);
     }
+    /**
+     * 查询存储企业保存的岗位信息根据电话号码
+     *
+     */
+    @Override
+    public JmrCompany selectJmrCompanyByPhone(String jId) {
+        return jmrCompanyMapper.selectJmrCompanyByPhone(jId);
+    }
+
 
     /**
      * 查询存储企业信息列表

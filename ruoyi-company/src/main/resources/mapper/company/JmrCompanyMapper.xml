@@ -36,7 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectJmrCompanyVo"/>
         where c_id = #{cId}
     </select>
-        
+
+    <select id="selectJmrCompanyByPhone" resultMap="JmrCompanyResult" parameterType="string">
+        <include refid="selectJmrCompanyVo"/>
+        where c_telephone=#{cTelephone}
+    </select>
+
     <insert id="insertJmrCompany" parameterType="JmrCompany" useGeneratedKeys="true" keyProperty="cId">
         insert into jmr_company
         <trim prefix="(" suffix=")" suffixOverrides=",">
