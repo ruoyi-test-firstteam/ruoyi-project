@@ -226,7 +226,6 @@
         <module>ruoyi-common</module>
         <module>ruoyi-student</module>
         <module>ruoyi-statistics</module>
-        <module>ruoyi-company</module>
     </modules>
     <packaging>pom</packaging>
 
