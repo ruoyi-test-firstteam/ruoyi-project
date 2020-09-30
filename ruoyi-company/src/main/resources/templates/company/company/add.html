@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label is-required">企业简介：</label>
                 <div class="col-sm-8">
-                    <textarea rows="8" name="cDescription" class="form-control" required></textarea>
+                    <textarea name="cDescription" class="form-control" required></textarea>
                 </div>
             </div>
             <div class="form-group">    
@@ -49,7 +49,9 @@
                 </div>
             </div>
         </form>
-
+        <a id="btn" class="btn btn-success"  shiro:hasPermission="company:company:add">
+            <i class="fa fa-plus"></i> 添加
+        </a>
 
 
     </div>

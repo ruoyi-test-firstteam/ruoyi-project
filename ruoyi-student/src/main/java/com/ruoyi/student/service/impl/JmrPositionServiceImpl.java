@@ -1,19 +1,19 @@
-package com.ruoyi.company.service.impl;
+package com.ruoyi.student.service.impl;
 
 import com.ruoyi.common.core.text.Convert;
-import com.ruoyi.company.domain.JmrPosition;
-import com.ruoyi.company.mapper.JmrPositionMapper;
-import com.ruoyi.company.service.IJmrPositionService;
+import com.ruoyi.student.domain.JmrPosition;
+import com.ruoyi.student.mapper.JmrPositionMapper;
+import com.ruoyi.student.service.IJmrPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * 岗位信息管理Service业务层处理
+ * 存储岗位信息Service业务层处理
  * 
  * @author ruoyi
- * @date 2020-09-27
+ * @date 2020-09-29
  */
 @Service("JmrPositionServiceImpl")
 public class JmrPositionServiceImpl implements IJmrPositionService 
@@ -22,10 +22,10 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     private JmrPositionMapper jmrPositionMapper;
 
     /**
-     * 查询岗位信息管理
+     * 查询存储岗位信息
      * 
-     * @param pId 岗位信息管理ID
-     * @return 岗位信息管理
+     * @param pId 存储岗位信息ID
+     * @return 存储岗位信息
      */
     @Override
     public JmrPosition selectJmrPositionById(Long pId)
@@ -34,10 +34,10 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     }
 
     /**
-     * 查询岗位信息管理列表
+     * 查询存储岗位信息列表
      * 
-     * @param jmrPosition 岗位信息管理
-     * @return 岗位信息管理
+     * @param jmrPosition 存储岗位信息
+     * @return 存储岗位信息
      */
     @Override
     public List<JmrPosition> selectJmrPositionList(JmrPosition jmrPosition)
@@ -46,9 +46,9 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     }
 
     /**
-     * 新增岗位信息管理
+     * 新增存储岗位信息
      * 
-     * @param jmrPosition 岗位信息管理
+     * @param jmrPosition 存储岗位信息
      * @return 结果
      */
     @Override
@@ -58,9 +58,9 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     }
 
     /**
-     * 修改岗位信息管理
+     * 修改存储岗位信息
      * 
-     * @param jmrPosition 岗位信息管理
+     * @param jmrPosition 存储岗位信息
      * @return 结果
      */
     @Override
@@ -70,7 +70,7 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     }
 
     /**
-     * 删除岗位信息管理对象
+     * 删除存储岗位信息对象
      * 
      * @param ids 需要删除的数据ID
      * @return 结果
@@ -82,9 +82,9 @@ public class JmrPositionServiceImpl implements IJmrPositionService
     }
 
     /**
-     * 删除岗位信息管理信息
+     * 删除存储岗位信息信息
      * 
-     * @param pId 岗位信息管理ID
+     * @param pId 存储岗位信息ID
      * @return 结果
      */
     @Override

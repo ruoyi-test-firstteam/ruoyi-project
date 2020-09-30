@@ -1,57 +1,58 @@
-package com.ruoyi.company.mapper;
+package com.ruoyi.student.mapper;
 
 import java.util.List;
+import com.ruoyi.student.domain.JmrPosition;
 
 /**
- * 岗位信息管理Mapper接口
+ * 存储岗位信息Mapper接口
  * 
  * @author ruoyi
- * @date 2020-09-27
+ * @date 2020-09-29
  */
 public interface JmrPositionMapper 
 {
     /**
-     * 查询岗位信息管理
+     * 查询存储岗位信息
      * 
-     * @param pId 岗位信息管理ID
-     * @return 岗位信息管理
+     * @param pId 存储岗位信息ID
+     * @return 存储岗位信息
      */
     public JmrPosition selectJmrPositionById(Long pId);
 
     /**
-     * 查询岗位信息管理列表
+     * 查询存储岗位信息列表
      * 
-     * @param jmrPosition 岗位信息管理
-     * @return 岗位信息管理集合
+     * @param jmrPosition 存储岗位信息
+     * @return 存储岗位信息集合
      */
     public List<JmrPosition> selectJmrPositionList(JmrPosition jmrPosition);
 
     /**
-     * 新增岗位信息管理
+     * 新增存储岗位信息
      * 
-     * @param jmrPosition 岗位信息管理
+     * @param jmrPosition 存储岗位信息
      * @return 结果
      */
     public int insertJmrPosition(JmrPosition jmrPosition);
 
     /**
-     * 修改岗位信息管理
+     * 修改存储岗位信息
      * 
-     * @param jmrPosition 岗位信息管理
+     * @param jmrPosition 存储岗位信息
      * @return 结果
      */
     public int updateJmrPosition(JmrPosition jmrPosition);
 
     /**
-     * 删除岗位信息管理
+     * 删除存储岗位信息
      * 
-     * @param pId 岗位信息管理ID
+     * @param pId 存储岗位信息ID
      * @return 结果
      */
     public int deleteJmrPositionById(Long pId);
 
     /**
-     * 批量删除岗位信息管理
+     * 批量删除存储岗位信息
      * 
      * @param pIds 需要删除的数据ID
      * @return 结果
