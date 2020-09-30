@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('存储匹配好的岗位信息（面向学生端）的依赖数据列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>性别匹配值：</label>
+                                <input type="text" name="jmrSexValue"/>
+                            </li>
+                            <li>
+                                <label>学校层次匹配值：</label>
+                                <input type="text" name="jmrLevelValue"/>
+                            </li>
+                            <li>
+                                <label>专业匹配值：</label>
+                                <input type="text" name="jmrProfessionValue"/>
+                            </li>
+                            <li>
+                                <label>学历匹配值：</label>
+                                <input type="text" name="jmrHistoryValue"/>
+                            </li>
+                            <li>
+                                <label>外语水平匹配值：</label>
+                                <input type="text" name="jmrLanguageValue"/>
+                            </li>
+                            <li>
+                                <label>期望薪资范围匹配值：</label>
+                                <input type="text" name="jmrRangeValue"/>
+                            </li>
+                            <li>
+                                <label>期望岗位匹配值：</label>
+                                <input type="text" name="jmrPositionValue"/>
+                            </li>
+                            <li>
+                                <label>就业意向地匹配值：</label>
+                                <input type="text" name="jmrCityValue"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:base:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:base:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:base:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:base:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:base:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:base:remove')}]];
+        var prefix = ctx + "system/base";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "存储匹配好的岗位信息（面向学生端）的依赖数据",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'jmrBId',
+                    title: '匹配结果数据的id',
+                    visible: false
+                },
+                {
+                    field: 'jmrSexValue',
+                    title: '性别匹配值'
+                },
+                {
+                    field: 'jmrLevelValue',
+                    title: '学校层次匹配值'
+                },
+                {
+                    field: 'jmrProfessionValue',
+                    title: '专业匹配值'
+                },
+                {
+                    field: 'jmrHistoryValue',
+                    title: '学历匹配值'
+                },
+                {
+                    field: 'jmrLanguageValue',
+                    title: '外语水平匹配值'
+                },
+                {
+                    field: 'jmrRangeValue',
+                    title: '期望薪资范围匹配值'
+                },
+                {
+                    field: 'jmrPositionValue',
+                    title: '期望岗位匹配值'
+                },
+                {
+                    field: 'jmrCityValue',
+                    title: '就业意向地匹配值'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.jmrBId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.jmrBId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
