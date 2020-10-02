@@ -7,7 +7,7 @@
      <div class="container-div">
         <div class="row">
             <div class="col-sm-12 search-collapse">
-                <form id="formId">
+                <form id="formId" th:if="${session.admin} eq 'yes'">
                     <div class="select-list">
                         <ul>
                             <li>
@@ -19,7 +19,7 @@
                                 <input type="text" name="sIdCard"/>
                             </li>
                             <li>
-                                <label>性别(0男 1女)：</label>
+                                <label>性别：</label>
                                 <select name="sSex" th:with="type=${@dict.getType('sys_user_sex')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
@@ -34,7 +34,7 @@
                                 <input type="text" name="sCollege"/>
                             </li>
                             <li>
-                                <label>毕业院校层次(0:985 1:211 2一批本科 3 二批本科 4专科 5高职)：</label>
+                                <label>毕业院校层次：</label>
                                 <select name="sCLevel" th:with="type=${@dict.getType('s_c_level')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
@@ -42,10 +42,13 @@
                             </li>
                             <li>
                                 <label>专业：</label>
-                                <input type="text" name="sProfession"/>
+                                <select name="sProfession" class="form-control m-b" required th:with="profession=${@JmrProfessionServiceImpl.selectJmrProfessionListShort(null)}">
+                                    <option value="">所有</option>
+                                    <option th:each="message:${profession}" th:value="${message.getpId()}" th:text="${message.getpSClass()}"></option>
+                                </select>
                             </li>
                             <li>
-                                <label>学历(0博士 1硕士 2本科 3专科)：</label>
+                                <label>学历：</label>
                                 <select name="sEHistory" th:with="type=${@dict.getType('s_e_history')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
@@ -60,7 +63,7 @@
                                 <input type="text" name="sNCity"/>
                             </li>
                             <li>
-                                <label>外语水平(0英语四级 1英语6级 2日语二级 3日语三级 4无)：</label>
+                                <label>外语水平：</label>
                                 <select name="sFLanguage" th:with="type=${@dict.getType('s_f_language')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
@@ -75,7 +78,10 @@
                             </li>
                             <li>
                                 <label>期望岗位：</label>
-                                <input type="text" name="sEPosition"/>
+                                <select name="sEPosition" class="form-control m-b" required th:with="profession=${@JmrPositionServiceImpl.selectJmrPositionList(null)}">
+                                    <option value="">所有</option>
+                                    <option th:each="message:${profession}" th:value="${message.getpId()}" th:text="${message.getpName()}"></option>
+                                </select>
                             </li>
                             <li>
                                 <label>就业意向地：</label>
@@ -102,7 +108,7 @@
                             </li>
                             <li>
                                 <label>是否就业：</label>
-                                <select name="sIfWork" th:with="type=${@dict.getType('s_if_work')}">
+                                <select name="sIfWork" th:with="type=${@dict.getType('sys_yes_no')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                                 </select>
@@ -125,7 +131,7 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="student:student:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="student:student:add" th:if="${session.message} eq 'yes'">
                     <i class="fa fa-plus"></i> 添加
                 </a>
                 <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="student:student:edit">
@@ -182,7 +188,7 @@
                 },
                 {
                     field: 'sSex',
-                    title: '性别(0男 1女)',
+                    title: '性别',
                     formatter: function(value, row, index) {
                        return $.table.selectDictLabel(sSexDatas, value);
                     }
@@ -197,18 +203,18 @@
                 },
                 {
                     field: 'sCLevel',
-                    title: '毕业院校层次(0:985 1:211 2一批本科 3 二批本科 4专科 5高职)',
+                    title: '毕业院校层次',
                     formatter: function(value, row, index) {
                        return $.table.selectDictLabel(sCLevelDatas, value);
                     }
                 },
                 {
-                    field: 'sProfession',
+                    field: 'professions.pSClass',
                     title: '专业'
                 },
                 {
                     field: 'sEHistory',
-                    title: '学历(0博士 1硕士 2本科 3专科)',
+                    title: '学历',
                     formatter: function(value, row, index) {
                        return $.table.selectDictLabel(sEHistoryDatas, value);
                     }
@@ -223,7 +229,7 @@
                 },
                 {
                     field: 'sFLanguage',
-                    title: '外语水平(0英语四级 1英语6级 2日语二级 3日语三级 4无)',
+                    title: '外语水平',
                     formatter: function(value, row, index) {
                        return $.table.selectDictLabel(sFLanguageDatas, value);
                     }
@@ -236,7 +242,7 @@
                     }
                 },
                 {
-                    field: 'sEPosition',
+                    field: 'position.pName',
                     title: '期望岗位'
                 },
                 {

@@ -229,11 +229,6 @@
     </modules>
     <packaging>pom</packaging>
 
-
-    <dependencies>
-
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>

@@ -1,13 +1,14 @@
 package com.ruoyi.student.mapper;
 
-import java.util.List;
 import com.ruoyi.student.domain.JmrStudent;
+
+import java.util.List;
 
 /**
  * 存储学生信息Mapper接口
  * 
  * @author ruoyi
- * @date 2020-09-27
+ * @date 2020-09-29
  */
 public interface JmrStudentMapper 
 {
@@ -58,4 +59,9 @@ public interface JmrStudentMapper
      * @return 结果
      */
     public int deleteJmrStudentByIds(String[] sIds);
+
+    /*
+    * 根据手机号码查询学生信息
+    * */
+    public JmrStudent selectJmrStudentByPhone(String phoneNumber);
 }

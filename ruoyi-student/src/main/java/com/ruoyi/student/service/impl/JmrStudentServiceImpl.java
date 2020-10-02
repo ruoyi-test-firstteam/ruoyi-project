@@ -1,20 +1,21 @@
 package com.ruoyi.student.service.impl;
 
-import java.util.List;
+import com.ruoyi.common.core.text.Convert;
+import com.ruoyi.student.domain.JmrStudent;
+import com.ruoyi.student.mapper.JmrStudentMapper;
+import com.ruoyi.student.service.IJmrStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.student.mapper.JmrStudentMapper;
-import com.ruoyi.student.domain.JmrStudent;
-import com.ruoyi.student.service.IJmrStudentService;
-import com.ruoyi.common.core.text.Convert;
+
+import java.util.List;
 
 /**
  * 存储学生信息Service业务层处理
  * 
  * @author ruoyi
- * @date 2020-09-27
+ * @date 2020-09-29
  */
-@Service
+@Service("JmrStudentServiceImpl")
 public class JmrStudentServiceImpl implements IJmrStudentService 
 {
     @Autowired
@@ -90,5 +91,10 @@ public class JmrStudentServiceImpl implements IJmrStudentService
     public int deleteJmrStudentById(Long sId)
     {
         return jmrStudentMapper.deleteJmrStudentById(sId);
+    }
+
+    @Override
+    public JmrStudent selectJmrStudentByPhone(String phoneNumber) {
+        return jmrStudentMapper.selectJmrStudentByPhone(phoneNumber);
     }
 }

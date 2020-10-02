@@ -1,13 +1,14 @@
 package com.ruoyi.student.service;
 
-import java.util.List;
 import com.ruoyi.student.domain.JmrStudent;
+
+import java.util.List;
 
 /**
  * 存储学生信息Service接口
  * 
  * @author ruoyi
- * @date 2020-09-27
+ * @date 2020-09-29
  */
 public interface IJmrStudentService 
 {
@@ -58,4 +59,9 @@ public interface IJmrStudentService
      * @return 结果
      */
     public int deleteJmrStudentById(Long sId);
+
+    /*
+    * 根据电话号码查询学生信息
+    * */
+    public JmrStudent selectJmrStudentByPhone(String phoneNumber);
 }
