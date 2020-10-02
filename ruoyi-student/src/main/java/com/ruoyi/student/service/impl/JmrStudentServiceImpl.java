@@ -15,7 +15,7 @@ import java.util.List;
  * @author ruoyi
  * @date 2020-09-29
  */
-@Service
+@Service("JmrStudentServiceImpl")
 public class JmrStudentServiceImpl implements IJmrStudentService 
 {
     @Autowired

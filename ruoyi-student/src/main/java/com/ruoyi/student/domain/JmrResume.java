@@ -54,7 +54,18 @@ public class JmrResume extends BaseEntity
     @Excel(name = "学生id")
     private Long rSId;
 
-    public void setrId(Long rId) 
+    //学生类对应学生姓名
+    private JmrStudent student;
+
+    public JmrStudent getStudent() {
+        return student;
+    }
+
+    public void setStudent(JmrStudent student) {
+        this.student = student;
+    }
+
+    public void setrId(Long rId)
     {
         this.rId = rId;
     }

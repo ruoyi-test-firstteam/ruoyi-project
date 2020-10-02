@@ -15,10 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="rSEvaluate"    column="r_s_evaluate"    />
         <result property="rRemark"    column="r_remark"    />
         <result property="rSId"    column="r_s_id"    />
+
+        <collection property="student" javaType="JmrStudent">
+            <result property="sName" column="s_name"/>
+        </collection>
     </resultMap>
 
     <sql id="selectJmrResumeVo">
-        select r_id, r_m_course, r_skill, r_s_certificate, r_honor, r_career, r_p_experience, r_s_evaluate, r_remark, r_s_id from jmr_resume
+        select r_id, r_m_course, r_skill, r_s_certificate, r_honor, r_career, r_p_experience, r_s_evaluate, r_remark, r_s_id, jmr_student.s_name
+         from jmr_resume
+         left join jmr_student on jmr_resume.r_s_id=jmr_student.s_id
     </sql>
 
     <select id="selectJmrResumeList" parameterType="JmrResume" resultMap="JmrResumeResult">

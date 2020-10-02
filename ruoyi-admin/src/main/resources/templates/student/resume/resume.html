@@ -7,25 +7,25 @@
      <div class="container-div">
         <div class="row">
             <div class="col-sm-12 search-collapse">
-<!--                <form id="formId">-->
-<!--                    <div class="select-list">-->
-<!--                        <ul>-->
-<!--                            <li>-->
-<!--                                <label>主修课程：</label>-->
-<!--                                <input type="text" name="rMCourse"/>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <label>掌握技能：</label>-->
-<!--                                <input type="text" name="rSkill"/>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <label>专业技能证书：</label>-->
-<!--                                <input type="text" name="rSCertificate"/>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <label>获得荣誉/奖项：</label>-->
-<!--                                <input type="text" name="rHonor"/>-->
-<!--                            </li>-->
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>主修课程：</label>
+                                <input type="text" name="rMCourse"/>
+                            </li>
+                            <li>
+                                <label>掌握技能：</label>
+                                <input type="text" name="rSkill"/>
+                            </li>
+                            <li>
+                                <label>专业技能证书：</label>
+                                <input type="text" name="rSCertificate"/>
+                            </li>
+                            <li>
+                                <label>获得荣誉/奖项：</label>
+                                <input type="text" name="rHonor"/>
+                            </li>
 <!--                            <li>-->
 <!--                                <label>自我评价：</label>-->
 <!--                                <input type="text" name="rSEvaluate"/>-->
@@ -34,17 +34,22 @@
 <!--                                <label>备注：</label>-->
 <!--                                <input type="text" name="rRemark"/>-->
 <!--                            </li>-->
-<!--                            <li>-->
-<!--                                <label>学生id：</label>-->
-<!--                                <input type="text" name="rSId"/>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
-<!--                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </form>-->
+                            <li th:if="${session.admin} eq 'yes'">
+                                <label>学生姓名：</label>
+                                <select name="rSId" class="form-control m-b"
+                                        th:with="profession=${@JmrStudentServiceImpl.selectJmrStudentList(null)}">
+                                    <option value="">所有</option>
+                                    <option th:each="message:${profession}" th:value="${message.getsId()}"
+                                            th:text="${message.getsName()}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
@@ -121,8 +126,8 @@
                     title: '备注'
                 },
                 {
-                    field: 'rSId',
-                    title: '学生id'
+                    field: 'student.sName',
+                    title: '学生姓名'
                 },
                 {
                     title: '操作',
